@@ -3,6 +3,7 @@
 import { User } from '@prisma/client'
 import Image from 'next/image'
 import React from 'react'
+import useActiveList from '../hooks/useActiveList'
 
 interface AvatarProps {
     user: User | null
@@ -11,6 +12,10 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({
     user
 }) => {
+
+  const {members} = useActiveList()
+  const isActive = members?.indexOf(user?.id!) !== -1
+
   return (
     <div
     className='relative'
@@ -31,7 +36,7 @@ const Avatar: React.FC<AvatarProps> = ({
     src={user?.image || "/images/Avatar.jpeg"}
     /> 
         </div>
-        <span 
+        {isActive && (   <span 
         className='
         absolute
         block
@@ -46,7 +51,8 @@ const Avatar: React.FC<AvatarProps> = ({
         md:h-3
         md:w-3
         '
-        />
+        />)}
+     
     </div>
   )
 }
