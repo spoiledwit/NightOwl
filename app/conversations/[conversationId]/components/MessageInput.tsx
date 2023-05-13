@@ -1,6 +1,7 @@
 'use client'
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
+import { HiPaperAirplane } from "react-icons/hi";
 
 interface MessageInputProps {
     id: string;
@@ -40,7 +41,6 @@ const MessageInput:React.FC<MessageInputProps> = ({
         focus:outline-none
         "
         />
-        
     </div>
   )
 }
