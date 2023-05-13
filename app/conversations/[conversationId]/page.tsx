@@ -40,10 +40,9 @@ const ConversationId =  async ({params} : {params: IParams}) => {
       <Header 
       conversation={conversation}
       />
-      <Body />
+      <Body initialMessages={messages} />
       <Form />
       </div>
-      
     </div>
   )
 }
