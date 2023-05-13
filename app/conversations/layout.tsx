@@ -1,4 +1,5 @@
 import getConversations from "../actions/getConversation"
+import getUsers from "../actions/getUsers"
 import Sidebar from "../components/sidebar/Sidebar"
 import ConversationList from "./components/ConversationList"
 
@@ -8,6 +9,7 @@ export default async function ConversationLayout({
     children: React.ReactNode
 }) {
 
+    const users = await getUsers();
     const conversations = await getConversations();
 
     return (
@@ -18,6 +20,7 @@ export default async function ConversationLayout({
             >
                 <ConversationList 
                 initialItems={conversations}
+                users={users}
                 />
             {children}
             </div>

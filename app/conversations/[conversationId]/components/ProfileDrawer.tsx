@@ -5,8 +5,9 @@ import useOtherUser from "@/app/hooks/useOtherUser";
 import { Dialog, Transition } from "@headlessui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import {IoMdClose, IoMdTrash} from "react-icons/io"
+import ConfirmModal from "./ConfirmModal";
 
 interface ProfileDrawerProps {
     isOpen: boolean;
@@ -23,6 +24,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 }) => {
 
     const otherUser = useOtherUser(data);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const joinedDate = useMemo(()=>{
         return format(new Date(otherUser.createdAt), 'PP');
     }, [otherUser.createdAt])
@@ -41,6 +43,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 
 
   return (
+    <>
+    <ConfirmModal
+    isOpen={confirmOpen}
+    onClose={()=>setConfirmOpen(false)} />
+    
     <Transition.Root
     show={isOpen}
     as={Fragment}
@@ -218,6 +225,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                 "
                                                 >
                                                     <div
+                                                    onClick={()=>setConfirmOpen(true)}
                                                     className="
                                                     w-10
                                                     h-10
@@ -329,6 +337,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
             </div>
         </Dialog>
     </Transition.Root>
+    </>
   )
 }
 
